@@ -49,7 +49,10 @@ fi
 # Check if vfs objects exist
 if ! grep -q 'vfs objects=catia,fruit,streams_xattr' "/etc/samba/smb.conf"; then
 	echo "Modify smb.conf"
-	sed -i 's:realm=\*:realm=*\n\tvfs objects=catia,fruit,streams_xattr:g' "/etc/samba/smb.conf"
+	if [ -n "$(tail -c 1 "/etc/samba/smb.conf")" ]; then
+		echo ""
+	fi
+	echo "\tvfs objects=catia,fruit,streams_xattr" >> "/etc/samba/smb.conf"
 	echo "Restart smbd"
 	restart smbd
 else
