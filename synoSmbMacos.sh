@@ -50,9 +50,9 @@ fi
 if ! grep -q 'vfs objects=catia,fruit,streams_xattr' "/etc/samba/smb.conf"; then
 	echo "Modify smb.conf"
 	if [ -n "$(tail -c 1 "/etc/samba/smb.conf")" ]; then
-		echo ""
+		echo '' >> "/etc/samba/smb.conf"
 	fi
-	echo "\tvfs objects=catia,fruit,streams_xattr" >> "/etc/samba/smb.conf"
+	echo '\tvfs objects=catia,fruit,streams_xattr' >> "/etc/samba/smb.conf"
 	echo "Restart smbd"
 	restart smbd
 else
